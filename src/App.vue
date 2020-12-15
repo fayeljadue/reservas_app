@@ -23,9 +23,9 @@
         <router-view></router-view>
       </div>
     </div>
-    <div class="footer bg-light border">
+    <!--<div class="footer bg-light border">
       <p class="footer-text navbar-brand">MisiónTIC 2022</p>
-    </div>
+    </div>-->
   </div>
 </template>
 
