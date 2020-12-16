@@ -1,5 +1,6 @@
 import vueRouter from "vue-router"
 import Checkin from "./components/CheckIn"
+import VerReservas from "./components/VerReservas"
 
 const router = new vueRouter ({
     mode: 'history',
@@ -9,6 +10,11 @@ const router = new vueRouter ({
             path: '/checkin',
             name: 'checkin',
             component: Checkin
+        },
+        {
+            path: '/verreservas',
+            name: 'verreservas',
+            component: VerReservas
         },
     ]
 })

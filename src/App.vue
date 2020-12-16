@@ -11,7 +11,7 @@
                     <ul class="navbar-nav ml-auto pr-3">
                         <li class="nav-item"><button v-on:click='checkin' class="m-2 btn btn-sm btn-outline-secondary" type="button">Check-In</button></li>
                         <li class="nav-item"><button class="m-2 btn btn-sm btn-outline-secondary" type="button">Check-Out</button></li>
-                        <li class="nav-item"><button class="m-2 btn btn-sm btn-outline-secondary" type="button">Ver reservas</button></li>
+                        <li class="nav-item"><button v-on:click='verreservas' class="m-2 btn btn-sm btn-outline-secondary" type="button">Ver reservas</button></li>
                         <li class="nav-item"><button class="m-2 btn btn-sm btn-outline-secondary" type="button">Buscar reserva</button></li>
                     </ul>
             </div>
@@ -38,8 +38,16 @@ export default {
   },
   methods: {
     checkin: function(){
-      this.titulo = "Reservas pendientes por hacer Check-In"
-      this.$router.push({name: "checkin"})
+      if(this.$route.name!="checkin"){
+        this.titulo = "Reservas pendientes por hacer Check-In"
+        this.$router.push({name: "checkin"})
+      }
+    },
+    verreservas: function(){
+      if(this.$route.name!="verreservas"){
+        this.titulo = "Ver todas las reservas"
+        this.$router.push({name: "verreservas"})
+      }
     }
   }
 }
