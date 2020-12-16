@@ -1,5 +1,9 @@
 <template>
-  <div>
+  <div id=Buscar>
+    <h3>Buscar Reserva</h3>
+    <label for="">id reserva</label>
+    <input type="date" v-model="id_reserva">
+    <button v-on:click='Buscar'>Buscar</button>
     <table class="table table-hover">
       <thead>
         <tr>
@@ -8,7 +12,7 @@
           <th>Apellido</th>
           <th>Cedula</th>
           <th># Personas</th>
-          <th>Check-out</th>
+          <th>Check-in</th>
         </tr>
       </thead>
       <tbody>
@@ -24,7 +28,7 @@
               v-on:click.prevent="enviarId($event, reserva.id_reserva)"
               href=""
               class="m-2 btn btn-sm btn-outline-secondary"
-              >Check-Out</a
+              >Check-In</a
             >
           </td>
         </tr>
@@ -41,7 +45,7 @@
 <script>
 import axios from "axios";
 export default {
-  name: "checkout",
+  name: "Buscar",
   data: function () {
     return {
       reservas: [],
@@ -49,27 +53,27 @@ export default {
   },
   methods: {
     enviarId: function (event, reserva) {
-        var checkout={'id_reserva':reserva}
       axios
-        .put("http://127.0.0.1:8000/reserva/chekout",checkout)
+        .get("http://127.0.0.1:8000/reserva/visualizar"+id_reserva)
         .then((response) => {
-          alert("Recepcionado correctamente")
-          window.location.reload(true)
+          alert(response.data.mensaje)
         })
         .catch((error) => {
-          alert("No se puede realizar el check-out");
+          console.log(error);
+          alert("Error del servidor 1");
         });
+        window.location.reload(true)
     },
   },
   beforeCreate: function () {
     axios
-      .get("http://127.0.0.1:8000/reserva/empleado/visualizar/progreso")
+      .get("http://127.0.0.1:8000/reserva/empleado/visualizar/pendiente")
       .then((response) => {
         this.reservas = response.data;
       })
       .catch((error) => {
         console.log(error);
-        alert("Error del servidor");
+        alert("Error del servidor 2");
       });
   },
 };
