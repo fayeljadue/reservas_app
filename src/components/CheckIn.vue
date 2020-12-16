@@ -53,12 +53,11 @@ export default {
         .put("http://127.0.0.1:8000/reserva/chekin?id_reserva="+reserva)
         .then((response) => {
           alert(response.data.mensaje)
+          window.location.reload(true)
         })
         .catch((error) => {
-          console.log(error);
-          alert("Error del servidor");
+          alert("No se puede realizar la reserva");
         });
-        window.location.reload(true)
     },
   },
   beforeCreate: function () {
