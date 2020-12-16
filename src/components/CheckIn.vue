@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1 class="display-4 pb-5 title">{{ titulo }}</h1>
     <table class="table table-hover">
       <thead>
         <tr>
@@ -30,11 +31,6 @@
         </tr>
       </tbody>
     </table>
-
-    <!--<hr>
-    <div>
-      <p class="reserva" v-for="reserva in reservas" v-bind:key="reserva">{{reserva.reserva1}}</p>
-    </div>-->
   </div>
 </template>
 
@@ -44,6 +40,7 @@ export default {
   name: "Checkin",
   data: function () {
     return {
+      titulo: "Reservas pendientes por hacer Check-In",
       reservas: [],
     };
   },

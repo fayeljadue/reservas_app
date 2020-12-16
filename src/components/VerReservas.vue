@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1 class="display-4 pb-5 title">{{ titulo }}</h1>
     <div class="form-inline reserva">
       <div class="form-group mb-2">
         <label for="Fecha_Inicio" class="sr-only">Fecha Inicial</label>
@@ -72,6 +73,7 @@ export default {
   name: "verreservas",
   data: function () {
     return {
+      titulo: "Ver todas las reservas",
       fecha_inicio: "",
       fecha_fin: "",
       reservas: [],

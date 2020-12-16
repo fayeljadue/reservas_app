@@ -48,6 +48,7 @@
             </li>
             <li class="nav-item">
               <button
+                v-on:click="buscarreserva"
                 class="m-2 btn btn-sm btn-outline-secondary"
                 type="button"
               >
@@ -60,13 +61,10 @@
     </div>
     <div class="main-component">
       <div class="jumbotron">
-        <h1 class="display-4 pb-5 title">{{ titulo }}</h1>
+        <h1 v-if="visibilidad" class="display-4 pb-5 title">Bienvenido a la aplicación de reservas</h1>
         <router-view></router-view>
       </div>
     </div>
-    <!--<div class="footer bg-light border">
-      <p class="footer-text navbar-brand">MisiónTIC 2022</p>
-    </div>-->
   </div>
 </template>
 
@@ -75,29 +73,45 @@ export default {
   name: "App",
   components: {},
   data: function () {
-    return { titulo: "Bienvenido a la aplicación de reservas" };
+    return { 
+      titulo: "Bienvenido a la aplicación de reservas",
+      visibilidad: false
+    };
   },
   methods: {
+
     checkin: function () {
       if (this.$route.name != "checkin") {
-        this.titulo = "Reservas pendientes por hacer Check-In";
+        this.visibilidad=false
         this.$router.push({ name: "checkin" });
       }
     },
     verreservas: function () {
       if (this.$route.name != "verreservas") {
-        this.titulo = "Ver todas las reservas";
+        this.visibilidad=false
         this.$router.push({ name: "verreservas" });
       }
     },
     checkout: function () {
       if (this.$route.name != "checkout") {
-        this.titulo = "Reservas pendientes por hacer Check-out";
+        this.visibilidad=false
         this.$router.push({ name: "checkout" });
       }
     },
+    buscarreserva: function () {
+      if (this.$route.name != "buscarreserva") {
+        this.visibilidad=false
+        this.$router.push({ name: "buscarreserva" });
+      }
+    }
+  },
+  created: function() {
+    if (this.$route.name == null)
+    {
+      this.visibilidad = true
+    }
   }
-};
+}
 </script>
 
 <style>
