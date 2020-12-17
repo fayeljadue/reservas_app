@@ -89,10 +89,7 @@ export default {
         .put("http://127.0.0.1:8000/reserva/cancelar/",cancelar)
         .then((response) => {
           alert(response.data.mensaje);
-          this.visibilidad = false;
-          this.$nextTick(()=>{
-              this.visibilidad = true;
-          })
+          this.buscarReserva();
         })
         .catch((error) => {
           alert("No se puede cancelar la reserva");
