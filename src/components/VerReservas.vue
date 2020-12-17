@@ -86,7 +86,7 @@ export default {
             'id_reserva': reserva
         }
       axios
-        .put("http://127.0.0.1:8000/reserva/cancelar/",cancelar)
+        .put("https://app-reservasg3m3.herokuapp.com/reserva/cancelar/",cancelar)
         .then((response) => {
           alert(response.data.mensaje);
           this.buscarReserva();
@@ -103,7 +103,7 @@ export default {
         alert("Ingrese las fechas");
       } else {
         axios
-          .get("http://127.0.0.1:8000/reserva/empleado/visualizar/"+fecha_ini+"/"+fecha_fin)
+          .get("https://app-reservasg3m3.herokuapp.com/reserva/empleado/visualizar/"+fecha_ini+"/"+fecha_fin)
           .then((response) => {
             this.reservas = response.data;
           })

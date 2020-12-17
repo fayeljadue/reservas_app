@@ -47,7 +47,7 @@ export default {
   methods: {
     enviarId: function (event, reserva) {
       axios
-        .put("http://127.0.0.1:8000/reserva/chekin?id_reserva="+reserva)
+        .put("https://app-reservasg3m3.herokuapp.com/reserva/chekin?id_reserva="+reserva)
         .then((response) => {
           alert(response.data.mensaje)
           window.location.reload(true)
@@ -59,7 +59,7 @@ export default {
   },
   beforeCreate: function () {
     axios
-      .get("http://127.0.0.1:8000/reserva/empleado/visualizar/pendiente")
+      .get("https://app-reservasg3m3.herokuapp.com/reserva/empleado/visualizar/pendiente")
       .then((response) => {
         this.reservas = response.data;
       })

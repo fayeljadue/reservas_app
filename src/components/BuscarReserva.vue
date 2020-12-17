@@ -68,7 +68,7 @@ export default {
       else
       {
         axios
-          .get("http://127.0.0.1:8000/reserva/empleado/buscar/" + this.cedula)
+          .get("https://app-reservasg3m3.herokuapp.com/reserva/empleado/buscar/" + this.cedula)
           .then((response) => {
             this.reservas = response.data;
             this.visibilidad = true
