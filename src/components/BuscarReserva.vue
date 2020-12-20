@@ -4,14 +4,18 @@
     <div class="form-inline reserva">
       <div class="form-group mx-sm-3 mb-2">
         <label for="cedula" class="sr-only">Cédula del cliente: </label>
-        <input type="text" v-model="cedula" class="form-control" id="cedula"/>
+        <input type="text" v-model="cedula" class="form-control" id="cedula" />
       </div>
-      <button type="button" v-on:click="traerReservas" class="mb-2 btn btn-sm btn-outline-secondary">
+      <button
+        type="button"
+        v-on:click="traerReservas"
+        class="mb-2 btn btn-sm btn-outline-secondary"
+      >
         Buscar
       </button>
     </div>
-    <br/>
-    <br/>
+    <br />
+    <br />
     <table v-if="visibilidad" class="table table-hover">
       <thead>
         <tr>
@@ -32,9 +36,15 @@
           <td>{{ reserva.apellido_cliente }}</td>
           <td>{{ reserva.contacto_cliente }}</td>
           <td>{{ reserva.cantidad_personas }}</td>
-          <td><span v-for="habitacion in reserva.lista_habitaciones" v-bind:key="habitacion">{{ habitacion }} </span></td>
+          <td>
+            <span
+              v-for="habitacion in reserva.lista_habitaciones"
+              v-bind:key="habitacion"
+              >{{ habitacion }}
+            </span>
+          </td>
           <td>{{ reserva.estado_reserva }}</td>
-          <td>{{ reserva.id_quien_realiza}}</td>
+          <td>{{ reserva.id_quien_realiza }}</td>
         </tr>
       </tbody>
     </table>
@@ -45,41 +55,33 @@
 import axios from "axios";
 export default {
   name: "buscarreserva",
-  data: function () {
+  data: function() {
     return {
       titulo: "Buscar reserva de un cliente",
       cedula: "",
       reservas: [],
-      visibilidad: false,
+      visibilidad: false
     };
   },
   methods: {
-    traerReservas: function () 
-    {
-
-      if (!this.cedula)
-      {
+    traerReservas: function() {
+      if (!this.cedula) {
         alert("Ingrese la cedula del cliente");
-      }
-      else if (isNaN(this.cedula))
-      {
+      } else if (isNaN(this.cedula)) {
         alert("Ingrese una cedula válida");
-      }
-      else
-      {
+      } else {
         axios
-          .get("https://app-reservasg3m3.herokuapp.com/reserva/empleado/buscar/" + this.cedula)
-          .then((response) => {
+          .get("http://app-reservasg3m3.herokuapp.com/reserva/empleado/buscar/" + this.cedula)
+          .then(response => {
             this.reservas = response.data;
-            this.visibilidad = true
+            this.visibilidad = true;
           })
-          .catch((error) => {
-            alert(error.response.data.detail)
+          .catch(error => {
+            alert(error.response.data.detail);
           });
-      
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

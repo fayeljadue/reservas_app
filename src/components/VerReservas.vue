@@ -71,31 +71,31 @@
 import axios from "axios";
 export default {
   name: "verreservas",
-  data: function () {
+  data: function() {
     return {
       titulo: "Ver todas las reservas",
       fecha_inicio: "",
       fecha_fin: "",
       reservas: [],
-      visibilidad: true,
+      visibilidad: true
     };
   },
   methods: {
-    cancelarReserva: function (event, reserva) {
-        var cancelar={
-            'id_reserva': reserva
-        }
+    cancelarReserva: function(event, reserva) {
+      var cancelar = {
+        id_reserva: reserva
+      };
       axios
-        .put("https://app-reservasg3m3.herokuapp.com/reserva/cancelar/",cancelar)
-        .then((response) => {
+        .put("http://app-reservasg3m3.herokuapp.com/reserva/cancelar/", cancelar)
+        .then(response => {
           alert(response.data.mensaje);
           this.buscarReserva();
         })
-        .catch((error) => {
+        .catch(error => {
           alert("No se puede cancelar la reserva");
         });
     },
-    buscarReserva: function () {
+    buscarReserva: function() {
       var fecha_ini = this.fecha_inicio.split("-").join("");
       var fecha_fin = this.fecha_fin.split("-").join("");
 
@@ -103,17 +103,22 @@ export default {
         alert("Ingrese las fechas");
       } else {
         axios
-          .get("https://app-reservasg3m3.herokuapp.com/reserva/empleado/visualizar/"+fecha_ini+"/"+fecha_fin)
-          .then((response) => {
+          .get(
+            "http://app-reservasg3m3.herokuapp.com/reserva/empleado/visualizar/" +
+              fecha_ini +
+              "/" +
+              fecha_fin
+          )
+          .then(response => {
             this.reservas = response.data;
           })
-          .catch((error) => {
+          .catch(error => {
             console.log(error);
             alert("Error del servidor");
           });
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

@@ -21,6 +21,7 @@
           <ul class="navbar-nav ml-auto pr-3">
             <li class="nav-item">
               <button
+                v-if="is_auth"
                 v-on:click="checkin"
                 class="m-2 btn btn-sm btn-outline-secondary"
                 type="button"
@@ -30,6 +31,7 @@
             </li>
             <li class="nav-item">
               <button
+                v-if="is_auth"
                 class="m-2 btn btn-sm btn-outline-secondary"
                 type="button"
                 v-on:click="checkout"
@@ -39,6 +41,7 @@
             </li>
             <li class="nav-item">
               <button
+                v-if="is_auth"
                 v-on:click="verreservas"
                 class="m-2 btn btn-sm btn-outline-secondary"
                 type="button"
@@ -48,11 +51,22 @@
             </li>
             <li class="nav-item">
               <button
+                v-if="is_auth"
                 v-on:click="buscarreserva"
                 class="m-2 btn btn-sm btn-outline-secondary"
                 type="button"
               >
                 Buscar reserva
+              </button>
+            </li>
+            <li class="nav-item">
+              <button
+                v-if="is_auth"
+                v-on:click="logout"
+                class="m-2 btn btn-sm btn-outline-secondary"
+                type="button"
+              >
+                Logout
               </button>
             </li>
           </ul>
@@ -61,10 +75,13 @@
     </div>
     <div class="main-component">
       <div class="jumbotron">
-        <h1 v-if="visibilidad" class="display-4 pb-5 title">Bienvenido a la aplicación de reservas</h1>
-        <router-view></router-view>
+        <h1 v-if="visibilidad" class="display-4 pb-5 title">
+          Bienvenido a la aplicación de reservas
+        </h1>
+        <router-view v-on:login="login"></router-view>
       </div>
     </div>
+   
   </div>
 </template>
 
@@ -72,46 +89,91 @@
 export default {
   name: "App",
   components: {},
-  data: function () {
-    return { 
+  data: function() {
+    return {
       titulo: "Bienvenido a la aplicación de reservas",
-      visibilidad: false
+      visibilidad: false,
+      is_auth: localStorage.getItem("is_auth") || false
     };
   },
   methods: {
+    checkin: function() {
+      var self = this;
 
-    checkin: function () {
-      if (this.$route.name != "checkin") {
-        this.visibilidad=false
-        this.$router.push({ name: "checkin" });
+      if (self.$route.name != "checkin") {
+        self.visibilidad = false;
+        self.$router.push({ name: "checkin" });
+      }
+      self.update_auth();
+    },
+    verreservas: function() {
+      var self = this;
+
+      if (self.$route.name != "verreservas") {
+        self.visibilidad = false;
+        self.$router.push({ name: "verreservas" });
+      }
+      self.update_auth();
+    },
+    checkout: function() {
+      var self = this;
+
+      if (self.$route.name != "checkout") {
+        self.visibilidad = false;
+        self.$router.push({ name: "checkout" });
+      }
+      self.update_auth();
+    },
+    buscarreserva: function() {
+      var self = this;
+
+      if (self.$route.name != "buscarreserva") {
+        self.visibilidad = false;
+        self.$router.push({ name: "buscarreserva" });
+      }
+      self.update_auth();
+    },
+    login: function(username) {
+      var self = this;
+
+      localStorage.setItem("current_username", username);
+      localStorage.setItem("is_auth", true);
+      self.$router.push("/");
+      self.visibilidad = true;
+      self.update_auth();
+    },
+
+    update_auth: function() {
+      var self = this;
+      self.is_auth = localStorage.getItem("is_auth") || false;
+
+      if (self.is_auth == false) {
+        if (self.$route.name != "login") {
+          self.$router.push({ name: "login" });
+        }
       }
     },
-    verreservas: function () {
-      if (this.$route.name != "verreservas") {
-        this.visibilidad=false
-        this.$router.push({ name: "verreservas" });
-      }
-    },
-    checkout: function () {
-      if (this.$route.name != "checkout") {
-        this.visibilidad=false
-        this.$router.push({ name: "checkout" });
-      }
-    },
-    buscarreserva: function () {
-      if (this.$route.name != "buscarreserva") {
-        this.visibilidad=false
-        this.$router.push({ name: "buscarreserva" });
-      }
+
+    logout: function() {
+      var self = this;
+
+      localStorage.removeItem("current_username");
+      localStorage.removeItem("is_auth");
+      self.visibilidad = false;
+      self.update_auth();
     }
   },
+
   created: function() {
-    if (this.$route.name == null)
-    {
-      this.visibilidad = true
+    var self = this;
+    if (self.$route.name != "login" && self.is_auth == false) {
+      self.$router.push({ name: "login" });
+    }
+    if (self.$route.name == null) {
+      self.visibilidad = true;
     }
   }
-}
+};
 </script>
 
 <style>

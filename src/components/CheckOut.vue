@@ -38,37 +38,37 @@
 import axios from "axios";
 export default {
   name: "checkout",
-  data: function () {
+  data: function() {
     return {
       titulo: "Reservas pendientes por hacer Check-out",
-      reservas: [],
+      reservas: []
     };
   },
   methods: {
-    enviarId: function (event, reserva) {
-        var checkout={'id_reserva':reserva}
+    enviarId: function(event, reserva) {
+      var checkout = { id_reserva: reserva };
       axios
-        .put("https://app-reservasg3m3.herokuapp.com/reserva/chekout",checkout)
-        .then((response) => {
-          alert("Recepcionado correctamente")
-          window.location.reload(true)
+        .put("http://app-reservasg3m3.herokuapp.com/reserva/chekout", checkout)
+        .then(response => {
+          alert("Recepcionado correctamente");
+          window.location.reload(true);
         })
-        .catch((error) => {
+        .catch(error => {
           alert("No se puede realizar el check-out");
         });
-    },
+    }
   },
-  beforeCreate: function () {
+  beforeCreate: function() {
     axios
-      .get("https://app-reservasg3m3.herokuapp.com/reserva/empleado/visualizar/progreso")
-      .then((response) => {
+      .get("http://app-reservasg3m3.herokuapp.com/reserva/empleado/visualizar/progreso")
+      .then(response => {
         this.reservas = response.data;
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
         alert("Error del servidor");
       });
-  },
+  }
 };
 </script>
 

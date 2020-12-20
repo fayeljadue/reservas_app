@@ -1,8 +1,10 @@
+
 import vueRouter from "vue-router"
 import BuscarReserva from "./components/BuscarReserva"
 import Checkin from "./components/CheckIn"
 import VerReservas from "./components/VerReservas"
 import checkout from "./components/CheckOut"
+import Login from "./components/Login"
 
 const router = new vueRouter ({
     mode: 'history',
@@ -27,6 +29,11 @@ const router = new vueRouter ({
             path: '/buscar',
             name: 'buscarreserva',
             component: BuscarReserva
+        },
+        {
+            path: '/login',
+            name: 'login',
+            component: Login
         },
     ]
 })
