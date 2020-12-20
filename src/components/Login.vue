@@ -48,7 +48,7 @@ export default {
         alert("Ingrese el usuario y la contraseña");
       } else {
         axios
-          .post("http://app-reservasg3m3.herokuapp.com/login", self.usr)
+          .post("https://app-reservasg3m3.herokuapp.com/login", self.usr)
           .then(response => {
             self.autenticado = response.data;
             self.$emit("login", self.usr.usuario);

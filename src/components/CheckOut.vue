@@ -48,7 +48,7 @@ export default {
     enviarId: function(event, reserva) {
       var checkout = { id_reserva: reserva };
       axios
-        .put("http://app-reservasg3m3.herokuapp.com/reserva/chekout", checkout)
+        .put("https://app-reservasg3m3.herokuapp.com/reserva/chekout", checkout)
         .then(response => {
           alert("Recepcionado correctamente");
           window.location.reload(true);
@@ -60,7 +60,7 @@ export default {
   },
   beforeCreate: function() {
     axios
-      .get("http://app-reservasg3m3.herokuapp.com/reserva/empleado/visualizar/progreso")
+      .get("https://app-reservasg3m3.herokuapp.com/reserva/empleado/visualizar/progreso")
       .then(response => {
         this.reservas = response.data;
       })
